@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: granthalay-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto:  validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        default_batch_fetch_size: 100
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+        order_updates: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}   # 24 hours
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.granthalay: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
